@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { contactsActions } from '../../redux/actions'
+import { addContact} from "../../redux/operations";
 import style from './form.module.css';
 
 
@@ -18,7 +18,7 @@ function Form() {
     const {value } = event.currentTarget;
     setNumber(value);
   }
-  const onSubmit = (name, number) => dispatch(contactsActions.addContact(name, number));
+  const onSubmit = (name, number) => dispatch(addContact(name, number));
   const handleSubmit = (event) => {
     event.preventDefault();
     const availabСheck = contacts.find(arr => arr.name === name);
