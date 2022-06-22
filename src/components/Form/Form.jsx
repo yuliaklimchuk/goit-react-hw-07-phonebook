@@ -18,7 +18,7 @@ function Form() {
     const {value } = event.currentTarget;
     setNumber(value);
   }
-  const onSubmit = (name, number) => dispatch(addContact(name, number));
+  const onSubmit = (contact) => dispatch(addContact(contact));
   const handleSubmit = (event) => {
     event.preventDefault();
     const availabСheck = contacts.find(arr => arr.name === name);
@@ -28,7 +28,8 @@ function Form() {
       setNumber('');
       return;
     }
-    onSubmit(name, number);
+    const contact = {name, number};
+    onSubmit(contact);
     setName('');
     setNumber('');
   }

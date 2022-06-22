@@ -1,33 +1,20 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
 import { contactsActions } from "./actions";
-
-const { fetchContactRequest,fetchContactSucces, fetchContactError,addContactRequest, addContactSucces, addContactError,deleteContactRequest,deleteContactSucces,deleteContactError } = contactsActions;
+import { fetchContacts, addContact, deleteContact } from "./operations";
 
 const items = createReducer([], {
-    [fetchContactSucces]: (_, { payload}) =>  payload,
-    [addContactSucces]: (state, { payload}) => [...state, payload],
-    [deleteContactSucces]: (state, { payload}) => state.filter(contact => contact.id !== payload),
+    [fetchContacts.fulfilled]: (_, { payload}) =>  payload,
+    [addContact.fulfilled]: (state, { payload }) => [...state, payload],
+    [deleteContact.fulfilled]: (state, { payload }) => state.filter(contact => contact.id !== payload.id),
 });
 
 const filter = createReducer('', {
     [contactsActions.changeFilter]: (_, {payload}) => payload,
 })
 
-const loading = createReducer(false, {
-    [fetchContactRequest]: () => true,
-    [fetchContactSucces]: () => false,
-    [fetchContactError]: () => false,
-    [addContactRequest]: () => true,
-    [addContactSucces]: () => false,
-    [addContactError]: () => false,
-    [deleteContactRequest]: () => true,
-    [deleteContactSucces]: () => false,
-    [deleteContactError]: ()=> false
-});
 
 export default combineReducers({
     items,
-    filter,
-    loading
+    filter
 })
